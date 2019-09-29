@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php
+ $apiKey = 'e1a491b9902d41389cc65267bcec0239';
+ session_start();
+?>
 <html lang="en" class="h-100"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -8,7 +12,7 @@
   
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/sticky-footer-navbar/">
 
     <!-- Bootstrap core CSS -->
@@ -51,10 +55,10 @@
             <li class="nav-item">
               <a class="nav-link" href="../">Home <span class="sr-only"></span></a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
               <a class="nav-link" href="./">Destiny <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
               <a class="nav-link" href="./clan-search.php">Clan Search <span class="sr-only"></span></a>
             </li>
           </ul>
@@ -65,41 +69,41 @@
 <!-- Main page content -->
 <main role="main" class="flex-shrink-0" style="margin-top: 10%">
 
-  <!-- News content regarding devlopments and major updates (Will rotate in later update) -->
-  <div class="container">
-    <h1><b>Destiny API:</b></h1>
-    <p>Currently a few small API and tutorial related projects I am working on.</p>
-  </div>
+<div class="container center">
+    <!-- Search form -->
+    <div class="container">
+      <form class="example">
+        <input type="text" placeholder="Search.." name="search">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
 
-  <br><br>
+    <br><br>
 
-  <!-- WiP container for new and upcoming features -->
-  <div class="container">
-    <h1><b>Currently being worked on:</b></h1>
-    <table>
-      <tr>
-        <p>- Nightfall List (Bungie has changed the API header for nightfalls so it is back to a WiP)</p>
-      </tr>
-      <tr>
-        <p>- Flashpoint API Call</p>
-      </tr>
-      <tr>
-        <p>- Raid Tools</p>
-      </tr>
-    </table>
-  </div>
+    <div class="container">
 
-  <br><br>
+    <?php
 
-  <!-- Patch Notes container for new features and fixes -->
-  <div class="container">
-    <h1><b>Patch Notes: V 0.1</b></h1>
-    <table>
-      <tr>
-        <p>- Subdirectory Created</p>
-      </tr>
-    </table>
-  </div>
+      if(isset($_GET['search'])){
+        echo '<h1> '.$_GET['search'].' </h1>';
+        echo '<br>';
+        
+        $api_call = curl_init();
+        curl_setopt($api_call, CURLOPT_URL, 'https://www.bungie.net/Platform/Destiny2/GroupV2/Name/'.$_GET['search'].'/1/');
+        curl_setopt($api_call, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($api_call, CURLOPT_HTTPHEADER, array('X-API-Key: ' . $apiKey));
+
+        $json = json_decode(curl_exec($api_call));
+        
+        print_r($json);
+        
+      }
+
+    ?>
+
+    </div>
+
+</div>
 
 </main>
 
