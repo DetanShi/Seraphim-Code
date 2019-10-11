@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
  $apiKey = 'e1a491b9902d41389cc65267bcec0239';
+ $apiKey = 'api-key';
  session_start();
 ?>
 <html lang="en" class="h-100"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -67,11 +68,11 @@
     </header>
 
 <!-- Main page content -->
-<main role="main" class="flex-shrink-0" style="margin-top: 10%">
+<main role="main" class="flex-shrink-0" style="margin-top: 15%;">
 
-<div class="container center">
+<div class="center" style="margin-left: 5%; margin-right: 5%; width:100% !imprtant;">
     <!-- Search form -->
-    <div class="container">
+    <div>
       <form class="example">
         <h1>Search for a Clan</h1>
         <input type="text" placeholder="Search.." name="search">
@@ -80,8 +81,6 @@
     </div>
 
     <br><br>
-
-    <div class="container">
 
     <?php
 
@@ -106,9 +105,9 @@
         $json = json_decode(curl_exec($ch));
         
         //echo "<br><br>Debug<br>";
-        //print_r(curl_getinfo($ch));
+        //print_r($json->Response);
 
-        if(isset($json)){
+        if(isset($json) && ($json->ErrorCode == 1)){
 
           echo '<h1>'.$json->Response->detail->name.'</h1>';
           echo '<p><i>'.$json->Response->detail->motto.'</i></p>';
@@ -124,7 +123,7 @@
 
           echo '<br><h2>Public Member List</h2><br><br>';
 
-          echo '<table>';
+          echo '<table cellpadding="15" style="margin-right: 5%; table-layout:fixed;">';
 
           $results = $member_json->Response->results;
 
@@ -132,71 +131,126 @@
 
           while($i < count($results)){
 
+            $platform = "";
+
             echo '<tr>';
             echo '<td style="border-collapse: collapse; border:1pt solid black;">';
-
+            echo 1+$i;
+            echo '</td><td style="border-collapse: collapse; border:1pt solid black;">';
             if($results[$i]->destinyUserInfo->crossSaveOverride != 0){
-              echo '<img src="https://i.imgur.com/4f3xKlT.png" style="margin-left: 0.5%; width: 6.5%; height: 8.5%;">';
+              echo 'Cross Save';
             } else {
 
               switch($results[$i]->destinyUserInfo->membershipType){
 
                 case 1:
-                    echo '<img src="https://i.imgur.com/BevwBOg.png" style="margin-left: 1.5%; width: 6.5%; height: 6.5%;">';
+                    echo 'Xbox';
                     break;
                 case 2:
-                    echo '<img src="https://i.imgur.com/0WIQXLq.png"  style="width: 10%; height: 18%;">';
+                    echo 'PS4';
                     break;
                 case 3:
-                    echo '<img src="https://i.imgur.com/PVWMEwR.png"  style="width: 10%; height: 18%;">';
+                    echo 'Steam';
                     break;
                 case 4:
-                    echo '<img src="https://i.imgur.com/UfnuPfw.png"  style="width: 10%; height: 21%;">';
+                    echo 'Battle.net';
                     break;
                 case 5:
-                    echo '<img src="https://i.imgur.com/1XIuoKN.png"  style="width: 15%; height: 15%;">';
+                    echo 'Stadia';
                     break;
               }
             }
-
-            echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$results[$i]->destinyUserInfo->displayName;
             
             if($results[$i]->isOnline == 1){
-              echo '<td style="border-collapse: collapse; border:1pt solid black;">&nbsp;&nbsp;&nbsp;[Status: Online]&nbsp;&nbsp;&nbsp;</td>';
+              echo '</td><td style="border-collapse: collapse; border:1pt solid black; color: green;">';
+              echo '<b>'.$results[$i]->destinyUserInfo->displayName.'</b></td>';
             } else {
-              echo '<td style="border-collapse: collapse; border:1pt solid black;">&nbsp;&nbsp;&nbsp;[Status: <i>Offline</i>]&nbsp;&nbsp;&nbsp;</td>';
+              echo '</td><td style="border-collapse: collapse; border:1pt solid black;">';
+              echo $results[$i]->destinyUserInfo->displayName.'</td>';
             }
 
-            switch($results[$i]->memberType){
+            echo '</td><td style="border-collapse: collapse; border:1pt solid black;">';
+            echo '<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal'.$i.'">Stats</button>';
 
-              case 1:
-                  echo '<td style="border-collapse: collapse; border:1pt solid black;">&nbsp;&nbsp;&nbsp;[Beginner]&nbsp;&nbsp;&nbsp;</td>';
-                  break;
-              case 2:
-                  echo '<td style="border-collapse: collapse; border:1pt solid black;">&nbsp;&nbsp;&nbsp;[Member]&nbsp;&nbsp;&nbsp;</td>';
-                  break;
-              case 3:
-                  echo '<td style="border-collapse: collapse; border:1pt solid black;">&nbsp;&nbsp;&nbsp;[Admin]&nbsp;&nbsp;&nbsp;</td>';
-                  break;
-              case 4:
-                  echo '<td style="border-collapse: collapse; border:1pt solid black;">&nbsp;&nbsp;&nbsp;[Acting Founder]&nbsp;&nbsp;&nbsp;</td>';
-                  break;
-              case 5:
-                  echo '<td style="border-collapse: collapse; border:1pt solid black;">&nbsp;&nbsp;&nbsp;[Founder]&nbsp;&nbsp;&nbsp;</td>';
-                  break;
-            }
+            echo '<div id="myModal'.$i.'" class="modal fade" role="dialog">';
+              echo '<div class="modal-dialog">';
+          
+                echo '<div class="modal-content">';
+                  echo '<div class="modal-header">';
+                    echo '<h4 class="modal-title">'.$results[$i]->destinyUserInfo->displayName.'</h4>';
+                  echo '</div>';
+                  echo '<div class="modal-body">';
+                  switch($results[$i]->memberType){
 
-            echo '</td>';
+                    case 1:
+                        echo '<p><b>Role - </b>[Beginner]</p>';
+                        break;
+                    case 2:
+                        echo '<p><b>Role - </b>[Member]</p>';
+                        break;
+                    case 3:
+                        echo '<p"><b>Role - </b>[Admin]</p>';
+                        break;
+                    case 4:
+                        echo '<p><b>Role - </b>[Acting Founder]</p>';
+                        break;
+                    case 5:
+                        echo '<p><b>Role - </b>[Founder]</p>';
+                        break;
+                  }
+
+                  //LastSeenDisplayNameType
+
+                  switch($results[$i]->destinyUserInfo->LastSeenDisplayNameType){
+
+                    case 1:
+                        
+                        $platform = "xb";
+                        break;
+                    case 2:
+                        //echo 'PS4';
+                        $platform = "ps";
+                        break;
+                    case 3:
+                        //echo 'Steam';
+                        $platform = "pc";
+                        break;
+                    case 4:
+                        //echo 'Battle.net';
+                        $platform = "pc";
+                        break;
+                    case 5:
+                        //echo 'Stadia';
+                        $platform = "stadia";
+                        break;
+                  }
+
+                  echo '<br>';
+                  echo '<p><b>UID - </b>'.$results[$i]->destinyUserInfo->membershipId.'</p>';
+                  echo '<br>';
+                  echo '<p><b>Joined - </b>'.str_replace("Z","",str_replace("T"," ",$results[$i]->joinDate)).'</p>';
+                  echo '<br>';
+                  echo '<a target="_blank" href="https://www.bungie.net/en/Profile/254/'.$results[$i]->bungieNetUserInfo->membershipId.'/"><b>Bungie Profile - </b>Click Me!</a>';
+                  echo '<br><br><br>';
+                  echo '<a target="_blank" href="https://raid.report/'.$platform.'/'.$results[$i]->destinyUserInfo->membershipId.'/"><b>Raid Report - </b>Click Me!</a>';
+                  echo '<br><br>';
+                  //print_r($results[$i]);
+                  echo '</div>';
+                  echo '<div class="modal-footer">';
+                  echo '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>';
+                  echo '</div>';
+                  echo '</div>';
+            
+                echo '</div>';
+            echo '</div></td><td></td>';
             echo '</tr>';
             $i++;
           }
 
           echo '</table>';
 
-          echo '<br><br>';
-          //print_r($member_json);
         } else {
-          echo 'An error occured in lookup, please try again. It is possible the API could not locate anything to return and simply did not return any information';
+          echo 'An error occured in lookup, please try again. It is possible the API could not locate anything on the requested clan to return and simply did not return any information';
         }
 
         
@@ -204,8 +258,6 @@
       }
 
     ?>
-
-    </div>
 
 </div>
 
