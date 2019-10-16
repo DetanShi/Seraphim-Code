@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<?php
+    $apiKey = 'e1a491b9902d41389cc65267bcec0239';
+    session_start("SeraphimCode");
+
+    $clan_name = $_GET['code'];
+?>
+
 <html lang="en" class="h-100"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -52,13 +59,7 @@
               <a class="nav-link" href="../">Home <span class="sr-only"></span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./">Destiny <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="./clan-search.php">Clan Search <span class="sr-only"></span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://www.bungie.net/en/OAuth/Authorize?client_id=24360&response_type=code">Register<span class="sr-only"></span></a>
             </li>
           </ul>
         </div>
@@ -70,39 +71,10 @@
 
   <!-- News content regarding devlopments and major updates (Will rotate in later update) -->
   <div class="container">
-    <h1><b>Destiny API:</b></h1>
-    <p>Currently a few small API and tutorial related projects I am working on.</p>
-  </div>
-
-  <br><br>
-
-  <!-- WiP container for new and upcoming features -->
-  <div class="container">
-    <h1><b>Currently being worked on:</b></h1>
-    <table>
-      <tr>
-        <p>- Nightfall List (Bungie has changed the API header for nightfalls so it is back to a WiP)</p>
-      </tr>
-      <tr>
-        <p>- Flashpoint API Call</p>
-      </tr>
-      <tr>
-        <p>- Raid Tools</p>
-      </tr>
-    </table>
-  </div>
-
-  <br><br>
-
-  <!-- Patch Notes container for new features and fixes -->
-  <div class="container">
-    <h1><b>Patch Notes: V 0.2.1</b></h1>
-    <table>
-      <tr>
-        <p>- Added Clan Search</p>
-        <p>- Clan search not list basic stats/links relevant to the clan member in same row</p>
-      </tr>
-    </table>
+    <h1><b>WIP</b></h1>
+    <p>Currently Being worked on.</p>
+    <br><br>
+    <?php echo '<p>URL auth code: '.htmlspecialchars($_GET["code"]).'</p>'; ?>
   </div>
 
 </main>

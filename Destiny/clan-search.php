@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <?php
  $apiKey = 'e1a491b9902d41389cc65267bcec0239';
- $apiKey = 'api-key';
- session_start();
+ session_start("SeraphimCode");
 ?>
 <html lang="en" class="h-100"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
@@ -10,7 +9,8 @@
     <title>Seraphim Code</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  
+    <link rel="icon" type="image/png" href="https://i.imgur.com/sRRRmRf.png">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -54,13 +54,13 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="../">Home <span class="sr-only"></span></a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="./">Destiny <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="./clan-search.php">Clan Search <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://www.bungie.net/en/OAuth/Authorize?client_id=24360&response_type=code">Register<span class="sr-only"></span></a>
             </li>
           </ul>
         </div>
@@ -70,7 +70,7 @@
 <!-- Main page content -->
 <main role="main" class="flex-shrink-0" style="margin-top: 15%;">
 
-<div class="center" style="margin-left: 5%; margin-right: 5%; width:100% !imprtant;">
+<div align="center" class="center" style="margin: auto; allign: center;">
     <!-- Search form -->
     <div>
       <form class="example">
@@ -242,7 +242,7 @@
                   echo '</div>';
             
                 echo '</div>';
-            echo '</div></td><td></td>';
+            echo '</div></td>';
             echo '</tr>';
             $i++;
           }
