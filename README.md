@@ -1,5 +1,5 @@
 # Seraphim-Code
-Website source code for www.SeraphimCode.com
+Website source code for www.SeraphimCode.com (Deprecated)
 
 # About
 I have decided to make the bulk of my website project open source.
