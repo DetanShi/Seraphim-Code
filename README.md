@@ -1,9 +1,5 @@
 # Seraphim-Code
-Website source code for www.SeraphimCode.com (Deprecated)
-
-# About
-I have decided to make the bulk of my website project open source.
-This will display my open ended code and also my mistakes in code (which I am sure will be evident)
+This was code written for an old website project back around 2018 for college when we were learning HTML, CSS, JS, and PHP. This project was used for a place to learn and is since deprecated, non-functional, and no longer being developed.
 
 # Goal
-To learn from experience of coding a full design website that is not restrained by requirments.
+to develop a simple site that utilizes API and displays information to the user focused around the API.
